@@ -1,0 +1,9 @@
+function[P] = escalar(P)
+
+[CantFilas, CantCols] = size(P);
+for index=1:CantCols
+
+    minimo = min(P(:, index));
+    maximo = max(P(:, index));
+    P(:,index) = (P(:,index) - minimo) ./ (maximo - minimo)); 
+end

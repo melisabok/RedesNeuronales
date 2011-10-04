@@ -1,0 +1,30 @@
+clear all
+clc
+
+datos = csvread('drug5.csv');
+delete('estimar_parametros_1.csv');
+
+
+[CantFilas, CantCols] = size(datos);
+% Escalo
+M = escalar(datos, 1:CantCols-1);
+
+%Parametros
+alfa = 0.01;
+cota_error = 0.0001;
+MAX_ITERA = 1000;
+funcion = 'tansig';
+
+for alfa = 0.001: 0.02: 0.3
+    for cota_error 
+end
+
+
+[correctos_train correctos_test] = realizar_corrida_1(M, alfa, cota_error, MAX_ITERA, funcion); 
+
+R = [alfa cota_error MAX_ITERA funcion correctos_train correctos_test];
+dlmwrite('estimar_parametros_1.csv',R,'-append');
+
+
+
+

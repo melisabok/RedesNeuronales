@@ -1,0 +1,16 @@
+function[CantCorrectos] = evaluar_clase_funcion(P, T, W, b, funcion)
+
+
+Y = feval(funcion, (W * P + b));
+clases = feval(funcion, 'output');
+[,cols] = size(clases)
+
+for clase=1:clases
+    indices = Y >= (clase - 0.2) & Y <= (clase + 0.2);
+    Y(indices) = clase;
+end
+
+%Calculo solo la cantidad de correctos
+CantCorrectos = sum(T == Y);
+%Parecidas = sum(abs(T-Y) < 0.2);
+
