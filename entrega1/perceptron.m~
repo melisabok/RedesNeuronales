@@ -1,0 +1,52 @@
+function perceptron = perceptron(P, T, W, b, alfa, MAX_ITERA)
+
+%% Algoritmo del perceptron
+[CantAtrib, CantPatrones] = size(P);
+
+ite = 0;
+todoBien = 0;
+
+fprintf('Parametros: %.2f %.2f  %d\n', b, alfa, MAX_ITERA);
+
+while (ite<MAX_ITERA) && (todoBien == 0)
+    ite=ite+1;
+    for patr = 1 : CantPatrones
+        neta = W * P(:,patr) + b;
+        y = hardlim(neta);
+        if T(patr) ~= y
+            todoBien = 0;
+
+            W = W + alfa * (T(patr)-y)*P(:,patr)';
+
+            b = b + alfa*(T(patr)-y);
+        end
+    end
+end
+
+
+fprintf('Weight resultante %.2f %.2f %.2f %.2f \n', W(1), W(2), W(3), W(4));
+fprintf('b resultante %.2f\n', b);
+
+
+% termino porque clasific? todo bien
+% o porque lleg? al m?ximo de iteraciones
+
+% Calcular la cantidad de patrones clasificados
+% correctamente
+%a = (W * P) + b;
+%a2 = (W * P);
+y = hardlim(W * P + b);
+%for patr = 1 : CantPatrones
+%    fprintf('(%.2f %.2f) ', a2(patr), a(patr));
+%end
+%fprintf('\n');
+CantCorrectos = sum((T == y));
+
+fprintf('Cantidad de patrones bien clasificados = ');
+fprintf('%d \n', CantCorrectos)
+
+fprintf('Quedaron mal clasificados = ')
+fprintf('%d \n', CantPatrones - CantCorrectos)
+    
+perceptron = (CantPatrones - CantCorrectos);
+

@@ -1,0 +1,30 @@
+% Funcion para realizar el intercalo de la clase en el la matriz M
+%
+%
+%
+function[M] = intercalarClase(M, Clase)
+
+    %Obtengo los indices de los datos que tienen clase 1
+    Uno_indices = find(M(:,Clase) == 1);
+    
+    %Obtengo los indices de los datos que tienen clase 1
+    Cero_indices = find(M(:,Clase) == 0);
+    
+    %Inicializo una matriz para comenzar asignar los valores intercalados
+    E = zeros(size(M));
+    
+    %Intercalo hasta min_indices
+    min_indices = min(length(Uno_indices), length(Cero_indices));
+    %Indices impares van los unos
+    E(1:2:(min_indices*2),:) = M(Uno_indices(1:min_indices),:);
+    %Indices pares van los ceros
+    E(2:2:(min_indices*2),:) = M(Cero_indices(1:min_indices),:);
+    
+    %El resto que queda
+    if(length(Uno_indices) > length(Cero_indices))
+        E(((min_indices*2) + 1):1:end,:) = M(Uno_indices(min_indices+1:1:end), :);
+    else
+        E(((min_indices*2) + 1):1:end,:) = M(Uno_indices(min_indices+1:1:end), :);
+    end
+    
+    M = E;
