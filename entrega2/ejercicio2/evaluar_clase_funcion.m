@@ -1,4 +1,5 @@
-%%
+%Evalua la cantidad de patrones clasificados correctamente en una arquitectura multicapa,
+% capa oculta y capa de salida
 function[CantCorrectos] = evaluar_clase_funcion(P, T, w1, b1, w2, b2, FuncionOculta, FuncionSalida)
 
  
@@ -9,18 +10,21 @@ function[CantCorrectos] = evaluar_clase_funcion(P, T, w1, b1, w2, b2, FuncionOcu
     NETA_SALIDA = w2 * F_NETA_OCULTA + b2 * ones(1, CantPatrones); 
     Y = feval(FuncionSalida, NETA_SALIDA);
 
-    clases = feval(FuncionSalida, 'output');
-    cant = length(clases);
-
-    for index=1:cant
-        clase = clases(index);
-        indices = Y >= (clase - 0.2) & Y <= (clase + 0.2);
-        Y(indices) = clase;
+    falso = 0;
+    verdadero = 1;
+    if(strcmp(FuncionSalida,'tansig') > 0)
+       falso = -1; 
     end
 
+    indices = Y >= (falso - 0.2) & Y <= (falso + 0.2);
+    Y(indices) = falso;
+
+    indices = Y >= (verdadero - 0.2) & Y <= (verdadero + 0.2);
+    Y(indices) = verdadero;
+    
+   
     %Calculo solo la cantidad de correctos
-    correctos = T == 1;
-    CantCorrectos = sum( Y(correctos) == 1);
+    CantCorrectos = sum(all(Y == T,1));
 
 
     

@@ -1,3 +1,12 @@
+%Realiza una corrida independiente:
+% - mezcla los datos
+% - separa el conjunto en training y test
+% - arma la matriz T en funcion de: FuncionSalida y cantidad de neuronas en
+% la capa oculta
+% - corre el multipercetron
+% - evalua training
+% - evalue testing
+% devuelve la cantidad de patrones correctos para training y testing
 function[correctos_train correctos_test] = realizar_corrida(M, alfa, cota_error, MAX_ITERA, FuncionOculta, FuncionSalida, Ocultas) 
 
     %Imprimo parametros de la corrida en consola
@@ -8,9 +17,13 @@ function[correctos_train correctos_test] = realizar_corrida(M, alfa, cota_error,
     % Separo en Train y Test
     [M_Train, M_Test] = separar_train_test(M, 80);
 
+    % Armo los T para Train y Test segun la funcion de salida
     P_Train = M_Train(:, 1:CantCols - 1)';
     Temp_Train = M_Train(:, CantCols)';
-    falso = min(feval(FuncionSalida,'output'));
+    falso = 0;
+    if(strcmp(FuncionSalida,'tansig') > 0)
+       falso = -1; 
+    end
     T_Train = ones(5,length(Temp_Train)) * falso;
     for index = 1:length(Temp_Train)
         T_Train(Temp_Train(index), index) = 1;
@@ -22,6 +35,7 @@ function[correctos_train correctos_test] = realizar_corrida(M, alfa, cota_error,
     for index = 1:length(Temp_Test)
         T_Test(Temp_Test(index), index) = 1;
     end
+
     
     %Corro la neurona
     [w1,b1,w2,b2] = bpn(P_Train, T_Train, alfa, cota_error, MAX_ITERA, FuncionOculta, FuncionSalida, Ocultas, Salidas);

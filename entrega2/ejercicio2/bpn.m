@@ -43,25 +43,8 @@ while ( AVGError > CotaError ) & ( itera <= MAX_ITE  )
       b1 = b1 + alfa * DeltaOculta;
       
    end; 
-   [itera AVGError]
+   %[itera AVGError]
 end; 
-% 
-% NETA_OCULTA = (w1 * P) + b1 * ones(1, CantPatrones);
-% F_NETA_OCULTA = feval(FuncionOculta, NETA_OCULTA);
-% 
-% NETA_SALIDA = w2 * F_NETA_OCULTA + b2 * ones(1, CantPatrones); 
-% F_NETA_SALIDA = feval(FuncionSalida, NETA_SALIDA);
-% 
-% unos = F_NETA_SALIDA >= 0.8;
-% menosunos = F_NETA_SALIDA <= -0.8;
-% F_NETA_SALIDA(unos)=1;
-% F_NETA_SALIDA(menosunos)=-1;
-% 
-% correctos = T2 == 1;
-% cantidad = sum( F_NETA_SALIDA(correctos) == 1);
-% 
-% fprintf('Resultados:');
-% R = [alfa itera AVGError cantidad (CantPatrones - cantidad)];
-% dlmwrite('bpn_vinos.csv',R,'-append');
+
 
 

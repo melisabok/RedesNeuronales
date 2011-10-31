@@ -1,4 +1,15 @@
-function[W, b] = neurona_no_lineal(P, T, alfa, CotaError, MAX_ITE, funcion)
+% Neurona no lineal.
+% Algoritmo que resuelve una neurona no lineal
+% P : Patrones
+% T : clase, tiene que estar compuesta en base a la funcion utilizada
+% alfa : tasa de aprendizaje
+% CotaError: cota del error
+% MAX_ITE: cantidad maxima de iteraciones
+% funcion: funcion a aplicar a los valores netos obtenidos en la red
+% detalle: puede tener valor 1 o 0, significa si se guarda la eficiencia
+% cada 100 iteraciones realizadas, se utiliza para la estimacion de
+% parametros
+function[ite, W, b] = neurona_no_lineal(P, T, alfa, CotaError, MAX_ITE, funcion, detalle)
 
 
 [CantAtrib, CantPatrones] = size(P);
@@ -7,17 +18,13 @@ W = rand(1,CantAtrib) - 0.5 * ones(1,CantAtrib);
 b = rand - 0.5;
 
 
-error_Ant = 0;
-error_Act = sum((T - feval(funcion, W*P+b))).^2 / CantPatrones;
+errorAct = 1;
 ite = 0;
-error_abs = abs(error_Act - error_Ant);
-suma_error = 1;
 
-while (ite < MAX_ITE) & (suma_error > CotaError)
+while (ite < MAX_ITE) & (errorAct > CotaError)
 
     ite = ite + 1;
-    error_Ant = error_Act;
-    suma_error = 0;
+    errorAct = 0;
     
     for patr = 1 : CantPatrones
     
@@ -29,17 +36,23 @@ while (ite < MAX_ITE) & (suma_error > CotaError)
         gradiente = -2*errorK*f_prima_neta*P(:, patr);
         
         W = W - alfa * gradiente';  
-        b = b - alfa * (-2*errorK*f_prima_neta); 
-        suma_error = suma_error + errorK^2;
+        b = b - alfa * (-2*errorK*f_prima_neta);
+        errorAct = errorAct + errorK^2;
     
     end
     
-    error_Act = suma_error / CantPatrones;
-    error_abs = abs(error_Act - error_Ant);
-    %[ite suma_error]
+    %[ite ErrorAct]
+    if (detalle == 1 & mod(ite,100) == 0)
+        
+        correctos_train = evaluar_clase_funcion(T, feval(funcion, W*P+b), funcion);
+        R = [alfa ite correctos_train (correctos_train / CantPatrones) * 100];
+        R
+        archivo = strcat('estimar_parametros_', funcion, '.csv');
+        dlmwrite(archivo,R,'delimiter','\t','-append');
+    end
+    
     
 end
-fprintf('Salida, ite: %d  error: %.8f\n', ite, suma_error);
 
 
 
