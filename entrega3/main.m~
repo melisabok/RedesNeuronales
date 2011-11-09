@@ -1,0 +1,31 @@
+clear all;
+clc;
+
+datos = csvread('Vinos.csv');
+[CantPatrones, Cols] = size(datos);
+datos = escalar(datos,2:Cols); 
+P = datos(:, 2:Cols);
+NroClase = datos(:,1);
+P = P';
+
+mezcla = randperm(CantPatrones);
+P = P(:,mezcla);
+NroClase = NroClase(mezcla);
+
+%Armo la matriz con valor = 1 en la fila que corresponda a la clase
+Y = zeros(3,CantPatrones);
+for index = 1:CantPatrones
+    Y(NroClase(index), index) = 1;
+end
+
+W = som(P, 6, 5, 3, 100, 0.05);
+
+W
+
+[clases, ganadoras] = calcular_ganadoras(P, W, NroClase);
+
+mapa = obtener_mapa(6, 5, clases);
+
+mapa
+
+

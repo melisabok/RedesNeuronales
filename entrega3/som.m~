@@ -1,0 +1,52 @@
+function[] = som(fil_ocultas, col_ocultas)
+
+pos = gridtop( col_ocultas, fil_ocultas); 
+pasos=linkdist(pos); 
+[entradas, CantPatrones] = size(P); 
+
+mezcla = randperm(CantPatrones);
+P = P(:,mezcla);
+NroClase = NroClase(mezcla);
+%Y = NroClase';
+Y = zeros(3,CantPatrones);
+for index = 1:CantPatrones
+    Y(NroClase(index), index) = 1;
+end
+
+ocultas = fil_ocultas * col_ocultas; 
+% Pesos iniciales 
+W = ones(entradas,ocultas) * 0.5; 
+
+vecinas = 3; 
+ITE_MAX = 100; 
+alfa = 0.05; 
+ite = 0;
+Reduccion = 20;
+ITE_MIN = (vecinas+2)*Reduccion;
+
+WAnt = 100*ones(entradas, ocultas);
+Dife = mean(sqrt(sum(WAnt - W).^2));
+
+while (( ite <= ITE_MAX ) && (Dife > 0.01)) || (ite < ITE_MIN)% "W no cambie mucho?
+    ite = ite + 1;
+    WAnt = W;
+    for patr =1:CantPatrones, 
+        %buscar el W mas proximo
+        distancias = sqrt(sum((P(:,patr)*ones(1,ocultas) - W).^2));
+        [DMin, ganadora] = min(distancias);
+        
+        %Actualizar la neurona ganadora y su vecindad 
+        for c=1:ocultas
+            if pasos(ganadora,c) <= vecinas
+                %actualizar W porque es la ganadora o una vecina
+                W(:,c) = W(:,c) + alfa * (P(:,patr) - W(:,c));
+            end
+        end
+    end
+    Dife = mean(sqrt(sum(WAnt - W).^2));
+    if (vecinas>=1) & (mod(ite,Reduccion)==0), 
+        vecinas = vecinas-1; 
+    end 
+end
+
+end

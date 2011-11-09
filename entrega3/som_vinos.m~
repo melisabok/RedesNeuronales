@@ -118,15 +118,11 @@ ganadoras
 %% neurona ganadora a la capa de salida. 
 beta = 0.1; 
 salidas = 3;
-W2 = zeros( salidas, ocultas);
-W2Ant = 100*ones(salidas, ocultas);
+W2 = zeros( salidas, ocultas); 
 ITE_MAX = 50;
 ite = 0;
-Dife = max(sqrt(sum(W2Ant - W2).^2));
-
-while ( ite <= ITE_MAX )  & (Dife > 0.001), 
-    ite = ite + 1;
-    W2Ant = W2;
+Dife = mean(sqrt(sum(WAnt - W).^2));
+while ( ite <= ITE_MAX )  %%& ( ?los pesos no cambien?), 
     for i=1:CantPatrones, 
         %buscar el W mas proximo 
         distancias = sqrt(sum((P(:,i)*ones(1,ocultas) - W).^2));
@@ -134,11 +130,10 @@ while ( ite <= ITE_MAX )  & (Dife > 0.001),
         
         %Actualizar los pesos que salen de la neurona 
         %  ganadora 
-        W2( :, ganadora) = W2(:, ganadora) + beta * (Y(:, i) - W2 (:, ganadora));    
+        W2( :, ganadora) = W2(:, ganadora) + beta * (Y(:, i) -W2(:, ganadora));    
     end  
-    Dife = max(sqrt(sum(W2Ant - W2).^2));
-    [ite Dife]
     %redibujar 
+    ite = ite + 1 
 end
 
 %Obtengo las Salidas de Train 
