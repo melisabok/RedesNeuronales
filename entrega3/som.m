@@ -7,7 +7,6 @@ pasos = linkdist(pos);
 ocultas = fil_ocultas * col_ocultas; 
 % Pesos iniciales 
 W = ones(entradas,ocultas) * 0.5; 
-
 ite = 0;
 Reduccion = 20;
 ITE_MIN = (vecinas+2)*Reduccion;

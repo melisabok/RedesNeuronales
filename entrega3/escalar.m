@@ -11,5 +11,9 @@ for index=1:length(Cols)
     colIndex = Cols(index);
     minimo = min(P(:, colIndex));
     maximo = max(P(:, colIndex));
-    P(:,colIndex) = ((P(:,colIndex) - minimo) ./ (maximo - minimo)); 
+    longitud = (maximo - minimo);
+    if longitud == 0
+        longitud = 1;
+    end
+    P(:,colIndex) = ((P(:,colIndex) - minimo) ./ longitud); 
 end

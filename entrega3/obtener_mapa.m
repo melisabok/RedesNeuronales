@@ -10,8 +10,8 @@ for nro = 1:ocultas
             if ~isempty(texto)
                 texto = strcat(texto, ' ; '); 
             end 
-            textoA = sprintf('c%d -->%d', cl, clases(nro,cl));
-            texto= [texto ',' textoA];
+            textoA = sprintf('c%d->%d', cl, clases(nro,cl));
+            texto= [texto textoA];
         end; 
     end; 
     fila = fil_ocultas -floor( (nro-1)/col_ocultas ); 

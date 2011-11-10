@@ -1,14 +1,14 @@
 function[W2] = capa_salida(P, W, T, ITE_MAX, beta)
 
-salidas = 3;
-ocultas = 30;
+ocultas = size(W,2);
+salidas = size(T,1);
 [entradas, CantPatrones] = size(P);
 W2 = zeros( salidas, ocultas);
 W2Ant = 100*ones(salidas, ocultas);
 ite = 0;
 Dife = max(sqrt(sum(W2Ant - W2).^2));
 
-while ( ite <= ITE_MAX )  & (Dife > 0.001), 
+while ( ite <= ITE_MAX )  & (Dife > 0.01), 
     ite = ite + 1;
     W2Ant = W2;
     for i=1:CantPatrones, 
@@ -21,7 +21,7 @@ while ( ite <= ITE_MAX )  & (Dife > 0.001),
         W2( :, ganadora) = W2(:, ganadora) + beta * (T(:, i) - W2 (:, ganadora));    
     end  
     Dife = max(sqrt(sum(W2Ant - W2).^2));
-    [ite Dife]
+    [ite Dife];
     %redibujar 
 end
 
