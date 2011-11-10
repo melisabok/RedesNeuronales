@@ -1,0 +1,22 @@
+function[CantCorrectos] = evaluar(P, W, W2, T, ocultas, clases)
+
+%Obtengo las Salidas de Train
+[entradas, CantPatrones] = size(P);
+Salidas = zeros(clases,CantPatrones);
+for i= 1:CantPatrones
+    distancias = sqrt(sum((P(:,i)*ones(1,ocultas) - W).^2));
+    [DMin, ganadora] = min(distancias);  
+    Salidas(:,i) = W2(:,ganadora);
+end;
+
+indices = (SalidasTrain >= - 0.2) & (SalidasTrain <= 0.2);
+SalidasTrain(indices) = 0;
+
+indices = (SalidasTrain >= 0.8) & (SalidasTrain <= 1.2);
+SalidasTrain(indices) = 1;
+    
+   
+%Calculo solo la cantidad de correctos
+CantCorrectos = sum(all(SalidasTrain == T,1));
+
+end
