@@ -1,0 +1,15 @@
+function[R] = verificar_linealmente_separable(Train, clase)
+
+[CantPatrones, Cols] = size(Train);
+
+P_esc = escalar(Train,2:Cols); 
+
+P_esc_mezc = mezclar(P_esc);
+
+% Separo en matriz de patrones y vector de clase
+P = P_esc_mezc(:, 2:Cols);
+NroClase = P_esc_mezc(:,1);
+P = P';
+
+% Armo el vector T con valor 1 solo en los patrones que tiene como valo
+end

@@ -1,5 +1,6 @@
 function[mapa] = obtener_mapa(fil_ocultas, col_ocultas, clases)
 
+fid=fopen('mapa.csv','A');
 
 mapa = cell(fil_ocultas, col_ocultas);
 ocultas = fil_ocultas * col_ocultas;
@@ -16,7 +17,13 @@ for nro = 1:ocultas
     end; 
     fila = fil_ocultas -floor( (nro-1)/col_ocultas ); 
     col  = mod( (nro-1), col_ocultas ) + 1; 
-    mapa(fila,col) = {[texto]}; 
+    mapa(fila,col) = {[texto]};
+    fprintf(fid,'%s,',texto);
+    if (col == col_ocultas)
+        fprintf(fid, '\n');
+    end
 end; 
+
+fclose(fid);
 
 end

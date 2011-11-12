@@ -30,13 +30,13 @@ W = som(P, fil_ocultas, col_ocultas, vecinas, ITE_MAX, alfa);
 
 [clases, ganadoras] = calcular_ganadoras(P, W, NroClase);
 
-% mapa = obtener_mapa(fil_ocultas, col_ocultas, clases);
-% 
-% mapa
+mapa = obtener_mapa(fil_ocultas, col_ocultas, clases);
+
+mapa
 
 W2 = capa_salida(P, W, Y, ITE_MAX, beta);
 
-%W2
+W2
 
 R = evaluar(P, W, W2, Y);
 
