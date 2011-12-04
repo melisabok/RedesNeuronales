@@ -1,0 +1,146 @@
+%%
+clc
+clear all
+
+lchrom  = 3            % long. del cromosoma 
+popsize = 10           % tama?o de la poblacion 
+pcross  = 0.65         % probabilidad de crossover
+pmutation = 0.01       % probabilidad de mutacion
+maxgen   = 2000        % m?x. cant.de generaciones
+
+%Armos la matriz datos
+Datos = [2,2,2,1;
+2,1,2,0;
+3,2,2,1;
+1,2,2,1;
+1,2,1,0;
+1,1,1,0;
+3,1,1,1;
+2,1,1,0;
+2,2,1,1;
+1,1,1,0;
+2,2,1,1;
+3,2,2,1;
+1,1,1,0;
+1,2,2,1];
+
+% 1. Genero la poblacion con valores random. una matriz de 20x3 = popsizexlchrom
+Pop = zeros(lchrom, popsize);
+
+% Col 1 = Practica, Col 2 = Activ-Distancia, Col 3 = Activ-Presencial
+Pop(1,:) = round(3*rand(1, popsize));
+Pop(2,:) = round(2*rand(1, popsize));
+Pop(3,:) = round(2*rand(1, popsize));
+
+% 1. bis. Valido que las reglas sean validas, si no es asi las corrijo
+Pop = validar_reglas(Pop);
+Pop'
+
+% 2. Comienzo evaluando las reglas donde el consecuente es aprobado.
+% calculo el soporte y la confianza para cada reglas
+Soporte = calcular_soporte(Datos, Pop) %sobre aprobados
+Confianza = calcular_confianza(Datos, Pop, 1)
+
+% 3. Calculo medida aptitud, como el promedio entre el soporte y confianza.
+% Puedo agregar la ponderacion por la longitud de la regla
+Fitness = (Soporte + Confianza) ./ 2
+
+% 4. Elijo las reglas que mayor fitness tienen, ordeno por fitness
+% descendente y elijo las dos primeras
+[Fitness_ordenado, Fitness_indices] = sort(Fitness, 2, 'descend');
+regla1 = Pop(:, Fitness_indices(1));
+regla2 = Pop(:, Fitness_indices(2));
+
+regla1
+regla2
+
+% 4. Cruzar y mutar las reglas
+[h1, h2] = cruzar_y_mutar(Pop,Fitness_indices(1), Fitness_indices(2), pcross, pmutation);
+
+h1
+h2
+
+% 5. Elijo las 2 peores reglas
+peor1 = Pop(:, Fitness_indices(popsize));
+peor2 = Pop(:, Fitness_indices(popsize - 1));
+
+peo
+
+Pop(:, Fitness_indices(popsize)) = h1;
+Pop(:, Fitness_indices(popsize - 1)) = h2;
+
+% 6. Valido las reglas
+Pop = validar_reglas(Pop);
+
+
+
+
+
+
+
+% cmax = 2500;
+% MinInterv = -10
+% MaxInterv = 50
+% cmax = 3;
+% MinInterv = -2;
+% MaxInterv = 1;
+% 
+% 
+% % Visualizar la funci?n FUN1 en el intervalo
+% % indicado
+% hold off
+% Intervalo = MinInterv:0.01:MaxInterv;
+% y = FUN1(Intervalo);
+% plot(Intervalo,y);
+% hold on
+% 
+% Pop = round(rand(lchrom,popsize));
+% Fenotipos = CromToNro(Pop, MinInterv, MaxInterv);
+% Salida = FUN1(Fenotipos);
+% Fitness = abs(cmax * ones(1, popsize) - Salida);
+% plot(Fenotipos,Salida,'*');
+% 
+% gen = 0;
+% IgualMejor = 0;
+% while (gen <= maxgen) & (IgualMejor < 20),
+%    gen = gen + 1; 
+%    %elitismo
+%    [FitMax quien] = max(Fitness);
+%    SuperIndividuo = Pop(:,quien);
+%    SuperFenotipo = Fenotipos(:,quien);
+%    
+%    NewPop = generar(Pop, Fitness, pcross, pmutation);
+%    Fenotipos = CromToNro(NewPop, MinInterv, MaxInterv);
+%    Salida = FUN1(Fenotipos);
+%    Fitness = abs(cmax * ones(1,popsize) - Salida);
+%    Pop = NewPop;
+%    %elitismo
+%    [FitMin peor] = min(Fitness);
+%    Pop(:,peor) = SuperIndividuo;
+%    Fitness(peor) = FitMax;
+%    Fenotipos(peor) = SuperFenotipo;
+%    Salida(peor) = FUN1(Fenotipos(peor));
+% 
+%    if(FitMax == max(Fitness))
+%       IgualMejor = IgualMejor + 1;
+%    else
+%       IgualMejor = 0;
+%    end
+%    
+%    % Redibujar
+%    hold off
+%    plot(Intervalo,y);
+%    hold on
+%    plot(Fenotipos,Salida,'*');
+%    
+%    [FitMax quien] = max(Fitness);
+%    salida = FUN1(Fenotipos(quien));
+%    plot(Fenotipos(quien),salida,'*r');
+%    pause(0.5)
+%    
+%    [gen IgualMejor]
+% end
+% 
+% FitMax
+% 
+% 

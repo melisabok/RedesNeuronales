@@ -1,0 +1,6 @@
+function Y = validar_reglas(Pop, numintervalos)
+
+
+Y = Pop;
+
+end

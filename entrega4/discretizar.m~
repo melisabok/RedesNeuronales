@@ -1,0 +1,9 @@
+function[P] = discretizar(Datos, intervalos)
+
+cuatro_intervalos = [1 1 1 2 2 3 3 4 4 4];
+siete_intervalos = [1 1 2 3 4 5 6 6 7 7];
+
+[CantRows, CantCols] = size(Datos);
+
+
+end

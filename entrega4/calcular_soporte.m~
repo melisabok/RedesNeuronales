@@ -1,0 +1,6 @@
+function soporte = calcular_soporte(Datos, Pop, clase)
+
+[CantRows, CantCols] = size(Datos);
+find
+soporte = rand(1, reglas) ;
+end
