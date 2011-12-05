@@ -15,7 +15,7 @@ for i=1:1:posicion,
 end
 
 if hayCrossover,
-  fprintf('Hay crossover en %d', posicion);  
+%   fprintf('Hay crossover en %d', posicion);  
   for i=posicion+1:1:long,
      h1(i,1) = mutar(Pop(i,p2),pmutation);
      h2(i,1) = mutar(Pop(i,p1),pmutation);

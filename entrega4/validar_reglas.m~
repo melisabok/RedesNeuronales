@@ -1,5 +1,14 @@
 function Y = validar_reglas(Pop, numintervalos)
 
+% validamos numero
+indices = Pop < 0;
+Pop(indices) = numintervalos;
+
+indices = Pop > numintervalos;
+Pop(indices) = 0;
+
+indices = all(Pop == 0, 2);
+
 
 Y = Pop;
 
