@@ -1,14 +1,25 @@
 function Y = validar_reglas(Pop, numintervalos)
 
-% validamos numero
+[longregla, popsize] = size(Pop);
+
+% validamos numeros negativos
 indices = Pop < 0;
 Pop(indices) = numintervalos;
 
+% validamos numeros fuera de rango
 indices = Pop > numintervalos;
 Pop(indices) = 0;
 
-indices = all(Pop == 0, 2);
+% validamos reglas nulas
+indices = all(Pop == 0, 1);
+% si hay reglas nulas
+if(sum(indices) > 0)
+    valor = round((numintervalos-1)*rand()) + 1;
+    pos = round((longregla-1)*rand()) + 1;
+    Pop(pos, 
 
+end
+Pop(:, indices > 0) = round(numintervalos*rand(longregla, sum(indices)));
 
 Y = Pop;
 

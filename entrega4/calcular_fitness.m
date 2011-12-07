@@ -1,13 +1,16 @@
-function [confianza] = calcular_confianza( Datos, Reglas, Clase, numclase)
+function [soporte, confianza, fitness] = calcular_fitness( Datos, Reglas, Clase, numclase)
 
-[CantRows, CantCols] = size(Datos);
-CantReglas = length(Reglas);
+[CantDatos, CantCols] = size(Datos);
+CantReglas = size(Reglas, 2);
 
-soporte = zeros(1, CantReglas);
+antencedente = zeros(1, CantReglas);
 correctos = zeros(1, CantReglas);
+longitud = sum(Reglas > 0);
+
+
 
 for j=1:CantReglas
-    for i=1:CantRows
+    for i=1:CantDatos
         esIgual = 1;
         k = 1;
         while esIgual && k <= CantCols
@@ -17,12 +20,14 @@ for j=1:CantReglas
             k = k + 1;
         end
         if (esIgual == 1)
-            soporte(1,j) = soporte(1,j) + 1;
+            antencedente(1,j) = antencedente(1,j) + 1;
             correctos(1,j) = correctos(1,j) + (Clase(i) == numclase);
         end
     end
 end
 
-confianza = correctos ./ soporte;
+confianza = correctos ./ antencedente;
 confianza(isnan(confianza))=0;
+soporte = correctos ./ CantDatos;
+fitness = (soporte + confianza) ./ (2 * longitud);
 end

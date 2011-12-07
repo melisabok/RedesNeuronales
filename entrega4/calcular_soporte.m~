@@ -1,6 +1,20 @@
-function soporte = calcular_soporte(Datos, Pop, clase)
+function [soporte] = calcular_soporte(Datos, Reglas)
 
 [CantRows, CantCols] = size(Datos);
-find
-soporte = rand(1, reglas) ;
+CantReglas = length(Reglas);
+
+soporte = zeros(1, CantReglas);
+
+for j=1:CantReglas
+    for i=1:CantRows
+        esIgual = 0;
+        for k=1:CantCols
+            if(Reglas(k, j) == Datos(i,k))
+            end
+        end
+        soporte(1,j) = soporte(1,j) + all(Datos(i,:) == Reglas(:,j)',2);
+    end
+end
+
+soporte = soporte / CantRows;
 end

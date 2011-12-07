@@ -30,9 +30,16 @@ while(gen < MAX_GEN)
     %[Fitness_ordenado, Fitness_indices] = sort(Fitness, 2, 'descend');
     %regla1 = Pop(:, Fitness_indices(1));
     %regla2 = Pop(:, Fitness_indices(2));
-    y1 = select(Fitness);  
+    y1 = select(Fitness);
     y2 = select(Fitness);  
-%     regla1
+    while(y2 == y1)
+        y2 = y2 + 1;
+    end
+    
+    Pop(:,y1)
+    
+    %   
+%regla1
 %     regla2
 
     % 4. Cruzar y mutar las reglas
@@ -43,14 +50,18 @@ while(gen < MAX_GEN)
 
     % 5. Elijo las 2 peores reglas
     [Fitness_ordenado, Fitness_indices] = sort(Fitness, 2, 'ascend');
-    peor1 = select(Fitness_o
-    peor2 = Pop(:, Fitness_indices(popsize - 1));
+    peor1 = select(Fitness_ordenado(1:(round(0.75*end))));
+    peor2 = select(Fitness_ordenado(1:(round(0.75*end))));
+    
+    if(peor2 == peor1)
+        peor2 = peor2 + 1;
+    end
 
 %     peor1
 %     peor2
 
-    Pop(:, peor1) = h1;
-    Pop(:, peor2) = h2;
+    Pop(:, Fitness_indices(peor1)) = h1;
+    Pop(:, Fitness_indices(peor2)) = h2;
 
 
 
