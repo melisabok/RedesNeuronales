@@ -6,7 +6,7 @@ for j=1:popsize
         % solo al 20% le pongo  valores entre 1 y 10
         pGen = rand();
         if pGen <= 0.2
-            Pop(i,j) = 1 + round(9 * rand());
+            Pop(i,:) = ones(1, popsize) + 9 * round(rand(1, popsize));
         end
     end
 end

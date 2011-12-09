@@ -11,10 +11,10 @@ maxgen   = 100;        % m?x. cant.de generaciones
 
 Datos = csvread('cancer.csv');
 
-% numintervalos = 4;
-% clase = 2;
-% [Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
-% Fitness
+numintervalos = 4;
+clase = 2;
+[Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
+Fitness
 
 numintervalos = 4;
 clase = 4;

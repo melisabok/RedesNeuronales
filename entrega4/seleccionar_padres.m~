@@ -1,0 +1,13 @@
+function[p1, p2] = seleccionar_padres(Fitness)
+
+[longRegla, cantReglas] = size(Fitness);
+if isequal(Fitness, zeros(longRegla, cantReglas))
+    
+end
+p1 = select(Fitness);
+p2 = select(Fitness);  
+while(p2 == p1)
+    p2 = p2 + 1;
+end
+    
+end

@@ -30,4 +30,5 @@ confianza = correctos ./ antencedente;
 confianza(isnan(confianza))=0;
 soporte = correctos ./ CantDatos;
 fitness = (soporte + confianza) ./ (2 * longitud);
+%fitness = (soporte + confianza) ./ (2);
 end
