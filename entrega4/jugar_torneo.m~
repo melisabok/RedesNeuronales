@@ -1,0 +1,8 @@
+function[P] = jugar_torneo(prob, p1, fitness1, p2, fitness2)
+
+value = rand();
+
+if(value <= prob)
+
+end
+end

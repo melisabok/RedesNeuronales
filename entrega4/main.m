@@ -2,30 +2,16 @@ clc
 clear all
 
 delete('salida.csv');
-
-lchrom  = 9;            % long. del cromosoma 
-popsize = 70;           % tama?o de la poblacion 
-pcross  = 0.65;         % probabilidad de crossover
-pmutation = 0.05;       % probabilidad de mutacion
-maxgen   = 100;        % m?x. cant.de generaciones
+delete('resultado.csv');
 
 Datos = csvread('cancer.csv');
 
-% numintervalos = 4;
-% clase = 2;
-% [Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
-% Fitness
-
-numintervalos = 4;
-clase = 4;
-[Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
-
-% numintervalos = 7;
-% clase = 2;
-% [Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
-
-% numintervalos = 7;
-% clase = 4;
-% [Pop, Fitness] = obtener_reglas(Datos, lchrom, popsize, pcross, pmutation, numintervalos, clase, maxgen);
-
+realizar_corrida(Datos, 2, 4, 0, 0);
+realizar_corrida(Datos, 2, 4, 1, 1);
+realizar_corrida(Datos, 4, 4, 0, 0);
+realizar_corrida(Datos, 4, 4, 1, 1);
+realizar_corrida(Datos, 2, 7, 0, 0);
+realizar_corrida(Datos, 2, 7, 1, 1);
+realizar_corrida(Datos, 4, 7, 0, 0);
+realizar_corrida(Datos, 4, 7, 1, 1);
 

@@ -1,0 +1,46 @@
+function[P] = seleccionar_estocastico(Fitness)
+
+CantReglas = size(Fitness, 2);
+
+TotalFitness = sum(Fitness);
+Select = Fitness ./ TotalFitness;
+Copias = Select .* CantReglas;
+Enteros = fix(Copias);
+Fracciones = Copias - Enteros;
+
+totalEnteros = sum(Enteros);
+totalSobrantes = 0;
+totalPadres = 2;
+cantEnteros = 2;
+
+P = zeros(1, totalPadres);
+
+if totalEnteros < totalPadres
+    totalSobrantes = totalPadres - totalEnteros;
+    cantEnteros = totalEnteros;
+end
+
+%% Obtengo los enteros
+indices = find(Enteros > 0);
+i = 1;
+j = 1;
+
+while (i <= length(indices)) && (j <= cantEnteros)
+    parteEntera = Enteros(indices(i));
+    for k=1:parteEntera
+        P(j) = indices(i);
+        j = j + 1;
+    end
+    i = i + 1;
+end
+
+%% Obtengo los sobrantes
+u = 1;
+while
+
+
+
+%select(Fracciones)
+
+
+end
