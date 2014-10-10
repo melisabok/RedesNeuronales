@@ -29,3 +29,13 @@ Para la próxima, fijate que la convergencia de la red sea la esperada.
 Devolucion TP3
 ==============
 
+
+Devolucion TP4
+==============
+
+Te conviene validar dentro de la mutación si queda en rango o no en vez de
+validar en la validación de la regla (valga la redundancia). De la forma en
+que lo hiciste cada vez que la mutación no sea valida te queda un cero en
+la regla, de la otra forma siempre vas a mutar a un valor valido. Eso hace
+que el algoritmo sea más eficiente.
+
