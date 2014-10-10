@@ -1,0 +1,31 @@
+Devolucion TP1
+==============
+
+- Las pruebas son bastante desordenadas. No demostraste tener en claro que las afirmaciones que realizás tienen que ser el promedio de una cierta cantidad de ejecuciones independientes.
+- En el ejercicio 1 hacés afirmaciones a partir de una única corrida.
+- La función discriminante la usás bien aunque al definirla se te mezcla su uso como función de activación (no igualás la suma de términos a cero sino a Y). Si bien al final la usás bien, en ningún lado mencionás la función signo.
+- Las conclusiones finales son correctas aunque no surgen del promedio de varias ejecuciones independientes.
+- En la página 7 del informe aparecen dos tablas que no tienen encabezado ambas para alfa=0.21. La primera requiere menos iteraciones que la segunda. Faltaría decir las característica de los datos de la primera tabla ya que la segunda (que es la que los ingresa en forma alternada) requiere más iteraciones en contradicción con las conclusiones.
+
+Devolucion TP2
+==============
+
+Tenés el mismo error en ambos ejercicios.
+
+Llamaste a la función escalar pasándole como segundo parámetro un vector en lugar de un número (cant. de columnas a escalar). Eso hace que sólo se escalen los valores del primer atributo y el resto quede como estaba.
+Por ese motivo, los resultados que obtuviste son tan malos.
+
+Algo te pareció raro en el ejercicio 2 porque la combinación tansig-tansig te dió bastante mal.
+
+Lo que no entiendo es porqué no imprimiste (está comentado en el código que enviaste) el valor del error durante las iteraciones. Allí podías ver que no disminuía.
+
+De todas formas, tu informe mejoró mucho con respecto a la entrega anterior.
+
+Tu calificación debería ser 8 (ocho) pero te voy a dar un punto adicional por el esfuerzo que pusiste. Dcoumentaste las ejecuciones, agregaste gráficos. Está mucho mejor que el anterior.
+
+Estos puntos "adicionales" no se volverán a repetir.
+Para la próxima, fijate que la convergencia de la red sea la esperada.
+
+Devolucion TP3
+==============
+
